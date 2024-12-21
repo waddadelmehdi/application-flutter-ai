@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import '../utils/form_validators.dart';
-import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -30,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+      // Navigate to HomeScreen after successful login
+      Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       setState(() {
         _errorMessage = _authService.getReadableErrorMessage(e);
@@ -56,7 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       if (userCredential?.user != null) {
         setState(() {
-          _errorMessage = 'Registration successful! Please check your email for verification.';
+          _errorMessage =
+          'Registration successful! Please check your email for verification.';
         });
       }
     } catch (e) {
@@ -73,55 +75,104 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blueAccent, Colors.lightBlue.shade100],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
-                validator: FormValidators.validateEmail,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-                validator: FormValidators.validatePassword,
-              ),
-              SizedBox(height: 20),
-              if (_errorMessage.isNotEmpty)
-                Text(_errorMessage, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 20),
-              if (_isLoading)
-                CircularProgressIndicator()
-              else
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: _login,
-                      child: Text('Login'),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 40),
-                      ),
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Welcome Back!',
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Please login to continue',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
+                        SizedBox(height: 24.0),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            prefixIcon: Icon(Icons.email),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          validator: FormValidators.validateEmail,
+                        ),
+                        SizedBox(height: 16.0),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            prefixIcon: Icon(Icons.lock),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          obscureText: true,
+                          validator: FormValidators.validatePassword,
+                        ),
+                        SizedBox(height: 16.0),
+                        if (_errorMessage.isNotEmpty)
+                          Text(
+                            _errorMessage,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        SizedBox(height: 16.0),
+                        if (_isLoading)
+                          CircularProgressIndicator()
+                        else
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: _login,
+                                child: Text('Login'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blueAccent,
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 16.0,
+                                    horizontal: 24.0,
+                                  ),
+                                  minimumSize: Size(double.infinity, 50),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 12.0),
+                            ],
+                          ),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: _register,
-                      child: Text('Create an account'),
-                    ),
-                  ],
+                  ),
                 ),
-            ],
+              ),
+            ),
           ),
         ),
       ),

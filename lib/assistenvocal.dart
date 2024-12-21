@@ -80,92 +80,100 @@ class _AssistenvocalState extends State<Assistenvocal> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Voice Assistant'),
+        backgroundColor: Colors.blueAccent,
+        elevation: 2,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.blueAccent,
-              child: Icon(
-                Icons.mic,
-                size: 60,
-                color: Colors.white,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade200, Colors.blueAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // Logo above the "Tap to Talk" text
+              Image.asset(
+                'assets/pngegg.png', // Path to your logo
+                height: 140, // Adjust size as needed
               ),
-            ),
-            const SizedBox(height: 10), // Moins d'espace
-            const Text(
-              'Tap to Talk',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
+              const SizedBox(height: 20),
+
+              const SizedBox(height: 20),
+              const Text(
+                'Tap to Talk',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            const SizedBox(height: 15), // Moins d'espace
-            // Zone de texte pour les mots reconnus
-            TextField(
-              controller: TextEditingController(text: _lastWords),
-              readOnly: true,
-              maxLines: 2,
-              decoration: InputDecoration(
+              const SizedBox(height: 20),
+              // Recognized Speech Display
+              _buildTextField(
+                value: _lastWords,
                 hintText: 'Recognized speech will appear here...',
-                filled: true,
-                fillColor: Colors.transparent,
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.blueAccent,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                borderColor: Colors.blueAccent,
               ),
-            ),
-            const SizedBox(height: 15),
-            // Zone de texte pour la réponse de l'API (avec scroll)
-            Expanded(
-              child: SingleChildScrollView(
-                child: TextField(
-                  controller: TextEditingController(text: _apiResponse),
-                  readOnly: true,
-                  maxLines: null, // Permet un contenu extensible
-                  decoration: InputDecoration(
+              const SizedBox(height: 20),
+              // API Response Display
+              Expanded(
+                child: SingleChildScrollView(
+                  child: _buildTextField(
+                    value: _apiResponse,
                     hintText: 'API response will appear here...',
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: Colors.green,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                    borderColor: Colors.greenAccent,
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 15),
-            // Bouton flottant pour démarrer/arrêter l'enregistrement vocal
-            FloatingActionButton(
-              onPressed: () {
-                if (_isListening) {
-                  _stopListening();
-                } else {
-                  _startListening();
-                }
-              },
-              child: Icon(
-                _isListening ? Icons.stop : Icons.mic,
-                color: Colors.white,
-                size: 30,
+              const SizedBox(height: 20),
+              // Floating Button
+              FloatingActionButton(
+                onPressed: () {
+                  if (_isListening) {
+                    _stopListening();
+                  } else {
+                    _startListening();
+                  }
+                },
+                child: Icon(
+                  _isListening ? Icons.stop : Icons.mic,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                backgroundColor: Colors.blueAccent,
               ),
-              backgroundColor: Colors.blueAccent,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String value,
+    required String hintText,
+    required Color borderColor,
+  }) {
+    return TextField(
+      controller: TextEditingController(text: value),
+      readOnly: true,
+      maxLines: null,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.white70),
+        filled: true,
+        fillColor: Colors.blue.shade50.withOpacity(0.3),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: borderColor, width: 2),
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      style: const TextStyle(color: Colors.white, fontSize: 16),
     );
   }
 }
