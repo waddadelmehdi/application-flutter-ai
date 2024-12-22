@@ -1,47 +1,39 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "com.google.gms.google-services"  // Add this line
-    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'  // Apply the google-services plugin
+    id 'dev.flutter.flutter-gradle-plugin'
 }
 
 android {
-    namespace = "com.example.application"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
-
+    compileSdkVersion 34  // Or your desired SDK version
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     defaultConfig {
-        applicationId = "com.example.application"
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
-        multiDexEnabled = true  // Add this line if you have many dependencies
+        // Specify the namespace for your app
+        namespace "com.example.application"  // Add this line to specify the namespace for your app
+        applicationId "com.example.application"  // The package name of your app
+        minSdkVersion 23
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
+            minifyEnabled true  // Enables code shrinking (ProGuard/R8)
+            shrinkResources true  // Enables resource shrinking
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-    // Add these Firebase dependencies
-    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')  // Firebase BOM
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'org.tensorflow:tensorflow-lite:2.9.0'  // Example TensorFlow Lite dependency
 }
-
-flutter {
-    source = "../.."
-}
-

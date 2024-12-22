@@ -136,6 +136,24 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.white70,
                 ),
               ),
+              SizedBox(height: 32.0),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/image-classification');
+                },
+                icon: Icon(Icons.camera_alt),
+                label: Text(
+                  'Image Classification',
+                  style: TextStyle(fontSize: 18),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

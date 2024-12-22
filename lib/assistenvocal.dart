@@ -98,7 +98,7 @@ class _AssistenvocalState extends State<Assistenvocal> {
             children: <Widget>[
               // Logo above the "Tap to Talk" text
               Image.asset(
-                'assets/pngegg.png', // Path to your logo
+                'assets/images/pngegg.png', // Path to your logo
                 height: 140, // Adjust size as needed
               ),
               const SizedBox(height: 20),

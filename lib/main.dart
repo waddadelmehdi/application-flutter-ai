@@ -1,3 +1,4 @@
+import 'package:application/screens/image-classification.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -56,7 +57,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
-        '/assistenvocal': (context) => Assistenvocal(), // Add other screens here
+        '/assistenvocal': (context) => Assistenvocal(),
+        '/image-classification': (context) => ImageClassificationScreen(),// Add other screens here
         // Add more routes as needed
       },
     );
