@@ -1,3 +1,5 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
 buildscript {
     repositories {
         google()  // Google's repository for Android dependencies
@@ -12,11 +14,13 @@ buildscript {
 
 allprojects {
     repositories {
-        google()  // Google's repository for dependencies
-        mavenCentral()  // Maven Central for other dependencies
+        google()
+        mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
     }
 }
-
 rootProject.buildDir = "../build"  // Set the root build directory
 
 subprojects {

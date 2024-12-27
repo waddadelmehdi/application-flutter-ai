@@ -21,6 +21,8 @@ dependencies:
   tflite_flutter: ^0.9.5
   tflite_flutter_helper: ^0.2.1
   camera: ^0.11.0
+  image: ^3.0.1
+  tflite: ^1.1.2
 
 
 dev_dependencies:
@@ -33,4 +35,5 @@ flutter:
 
   assets:
     - assets/images/pngegg.png
-    - assets/models/cnn_fmnist.tflite
+    - assets/cnn_fruits_model.tflite  # Ensure this is correctly referenced
+    - assets/labels.txt

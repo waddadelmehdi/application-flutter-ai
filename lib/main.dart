@@ -1,11 +1,15 @@
+import 'package:application/screens/ANNImageClassificationScreen.dart';
 import 'package:application/screens/image-classification.dart';
+import 'package:application/screens/stock_price_screen.dart';
+import 'package:application/screens/test-screen.dart';
+import 'package:application/screens/user-screnn.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'assistenvocal.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
-// Import your other screens here
+ // Ensure the correct path for your UserScreen
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +46,10 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           // While waiting for authentication state to be determined
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
           // If user is logged in, show HomeScreen, else show LoginScreen
@@ -58,8 +64,9 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
         '/assistenvocal': (context) => Assistenvocal(),
-        '/image-classification': (context) => ImageClassificationScreen(),// Add other screens here
-        // Add more routes as needed
+        '/image-classification': (context) => ImageClassificationScreen(),
+        '/stock-price': (context) => StockPriceScreen(),// UserScreen route
+        '/ann': (context) => ANNImageClassificationScreen(),
       },
     );
   }

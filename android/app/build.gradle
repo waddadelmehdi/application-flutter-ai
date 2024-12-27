@@ -7,6 +7,7 @@ plugins {
 
 android {
     compileSdkVersion 34  // Or your desired SDK version
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -23,6 +24,10 @@ android {
         multiDexEnabled true
     }
 
+    aaptOptions {
+        noCompress 'tflite'
+        noCompress 'lite'
+    }
     buildTypes {
         release {
             minifyEnabled true  // Enables code shrinking (ProGuard/R8)
@@ -34,6 +39,12 @@ android {
 
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.7.0')  // Firebase BOM
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'org.tensorflow:tensorflow-lite:2.9.0'  // Example TensorFlow Lite dependency
+    implementation 'com.google.firebase:firebase-analytics'  // Firebase Analytics
+
+    implementation 'org.tensorflow:tensorflow-lite:2.14.0'
+    implementation 'org.tensorflow:tensorflow-lite-api:2.14.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.4.4'
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'  // Add Kotlin standard library if missing
 }

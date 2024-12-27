@@ -13,6 +13,7 @@ class _ClassifyPageState extends State<ClassifyPage> {
   final ModelService _modelService = ModelService();
   String _classification = "Classify Images";
   Uint8List? _imageBytes;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -21,21 +22,37 @@ class _ClassifyPageState extends State<ClassifyPage> {
   }
 
   Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(source: source);
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
+    try {
+      final pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        final bytes = await pickedFile.readAsBytes();
+        setState(() {
+          _imageBytes = bytes;
+          _isLoading = true; // Start loading before classification
+        });
+        await _classifyImage(bytes);
+      }
+    } catch (e) {
       setState(() {
-        _imageBytes = bytes;
+        _classification = "Failed to pick or process image.";
+        _isLoading = false;
       });
-      _classifyImage(bytes);
     }
   }
 
-  void _classifyImage(Uint8List imageBytes) async {
-    final result = _modelService.classifyImage(imageBytes);
-    setState(() {
-      _classification = result;
-    });
+  Future<void> _classifyImage(Uint8List imageBytes) async {
+    try {
+      final result = await _modelService.classifyImage(imageBytes); // Ensure async handling
+      setState(() {
+        _classification = result;
+        _isLoading = false; // Stop loading after classification
+      });
+    } catch (e) {
+      setState(() {
+        _classification = "Failed to classify image.";
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -54,15 +71,23 @@ class _ClassifyPageState extends State<ClassifyPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            _classification,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          if (_imageBytes != null)
-            Image.memory(
-              _imageBytes!,
-              height: 200,
-              fit: BoxFit.cover,
+          if (_isLoading)
+            CircularProgressIndicator()
+          else
+            Column(
+              children: [
+                Text(
+                  _classification,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                if (_imageBytes != null)
+                  Image.memory(
+                    _imageBytes!,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+              ],
             ),
           const SizedBox(height: 20),
           ElevatedButton.icon(

@@ -45,10 +45,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "2985b8e5fca62709ebb2150962b1dae0444ba0a112be888ccf21e8371a1406d9"
+      sha256: abcfa1ac32bd03116b4cfda7e8223ab391f01966e65823c064afe388550d1b3d
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.10+1"
+    version: "0.6.10+3"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -321,7 +321,7 @@ packages:
     source: hosted
     version: "4.1.1"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
       sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
@@ -340,10 +340,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: fa8141602fde3f7e2f81dbf043613eb44dfa325fa0bcf93c0f142c9f7a2c193e
+      sha256: aa6f1280b670861ac45220cc95adc59bb6ae130259d36f980ccb62220dc5e59f
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.12+18"
+    version: "0.8.12+19"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -637,6 +637,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
+  tflite:
+    dependency: "direct main"
+    description:
+      name: tflite
+      sha256: "661f8942a0e8ca05fedf554cc6f9cc95f526d0e4588d1665e0eb4d29e25e69b1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   tflite_flutter:
     dependency: "direct main"
     description:
