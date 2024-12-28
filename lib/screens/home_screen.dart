@@ -6,6 +6,11 @@ class HomeScreen extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  String _capitalizeFirst(String input) {
+    if (input.isEmpty) return input;
+    return input[0].toUpperCase() + input.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = _auth.currentUser;
@@ -72,7 +77,7 @@ class HomeScreen extends StatelessWidget {
         color: Colors.blueAccent,
       ),
       accountName: Text(
-        user?.email?.split('@')[0] ?? 'Guest',
+          _capitalizeFirst(user?.email?.split('@')[0] ?? 'Guest'),
         style: TextStyle(color: Colors.white),
       ),
       accountEmail: Text(
@@ -172,7 +177,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             Text(
-              'Welcome, ${user?.email ?? 'Guest'}!',
+              'Welcome, ${_capitalizeFirst(user?.email?.split('@')[0] ?? 'Guest')}!',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

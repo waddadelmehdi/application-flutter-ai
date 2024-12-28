@@ -1,8 +1,6 @@
 import 'package:application/screens/ANNImageClassificationScreen.dart';
 import 'package:application/screens/image-classification.dart';
 import 'package:application/screens/stock_price_screen.dart';
-import 'package:application/screens/test-screen.dart';
-import 'package:application/screens/user-screnn.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -64,7 +62,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
         '/assistenvocal': (context) => Assistenvocal(),
-        '/image-classification': (context) => ImageClassificationScreen(),
+        '/image-classification': (context) => ImageClassificationPage(),
         '/stock-price': (context) => StockPriceScreen(),// UserScreen route
         '/ann': (context) => ANNImageClassificationScreen(),
       },

@@ -23,6 +23,8 @@ dependencies:
   camera: ^0.11.0
   image: ^3.0.1
   tflite: ^1.1.2
+  path_provider: ^2.0.13
+  permission_handler: ^11.0.0
 
 
 dev_dependencies:
@@ -31,9 +33,10 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
-  uses-material-design: true
-
   assets:
     - assets/images/pngegg.png
-    - assets/cnn_fruits_model.tflite  # Ensure this is correctly referenced
-    - assets/labels.txt
+    - assets/models/cnn_fruits_model.tflite  # Ensure this is correctly referenced
+    - assets/models/labels.txt
+  uses-material-design: true
+
+

@@ -44,7 +44,7 @@ class _ClassifyPageState extends State<ClassifyPage> {
     try {
       final result = await _modelService.classifyImage(imageBytes); // Ensure async handling
       setState(() {
-        _classification = result;
+        _classification = result as String;
         _isLoading = false; // Stop loading after classification
       });
     } catch (e) {
