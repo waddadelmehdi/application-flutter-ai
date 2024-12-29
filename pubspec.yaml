@@ -25,6 +25,7 @@ dependencies:
   tflite: ^1.1.2
   path_provider: ^2.0.13
   permission_handler: ^11.0.0
+  http: ^1.1.0
 
 
 dev_dependencies:

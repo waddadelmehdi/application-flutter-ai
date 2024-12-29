@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../services/ApiService.dart';
 import '../services/model_service.dart';
 import 'dart:typed_data';
 
@@ -13,6 +14,7 @@ class ImageClassificationPage extends StatefulWidget {
 class _ImageClassificationPageState extends State<ImageClassificationPage> {
   final ImagePicker _picker = ImagePicker();
   final ModelService _modelService = ModelService();
+  final ApiService _apiService = ApiService(baseUrl: 'http://192.168.11.108:8089');
   List<Map<String, dynamic>> _predictions = [];
   Uint8List? _imageBytes;
   bool _isLoading = false;
@@ -21,8 +23,6 @@ class _ImageClassificationPageState extends State<ImageClassificationPage> {
   @override
   void initState() {
     super.initState();
-    _initializeModel();
-    _modelService.loadModel();
   }
 
   Future<void> _initializeModel() async {
@@ -59,7 +59,7 @@ class _ImageClassificationPageState extends State<ImageClassificationPage> {
 
   Future<void> _classifyImage(Uint8List imageBytes) async {
     try {
-      final result = await _modelService.classifyImage(imageBytes);
+      final result = await _apiService.classifyImage(imageBytes);
       setState(() {
         _predictions = result['top3Predictions'];
         _error = '';
